@@ -8,10 +8,13 @@
     <string name="finish">Finish</string>
     <string name="prev">Previous</string>
     <string name="results">Results</string>
+    <string name="start_over">Start Over</string>
 
     <array name="all_questions">
         <item>What is the capital of Bhutan?;Ouagadougou;Phnom Penh;*Thimphu;Zgighiti</item>
-        <item>Pregunta 2;a;*b;c;d</item>    </array>
+        <item>Pregunta 2;a;*b;c;d</item>
+        <item>XXXXXXXXXXXXX;asds;sdfsdfb;cdsfsdf;.....</item>
+    </array>
 
 
     </resources>

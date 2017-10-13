@@ -17,6 +17,11 @@ import org.w3c.dom.Text;
 
 public class QuizActivity extends AppCompatActivity {
 
+    public static final String CORRECT_ANSWER = "correct_answer";
+    public static final String CURRENT_QUESTION = "current_question";
+    public static final String ANSWER_IS_CORRECT = "answer_is_correct";
+    public static final String ANSWER = "answer";
+
     private int ids_answers[]={
             R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4
     };
@@ -30,7 +35,37 @@ public class QuizActivity extends AppCompatActivity {
     private Button btn_next, btn_prev;
 
     @Override
+    protected void onStop() {
+        Log.i("lifecycle","onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i("lifecycle","onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("lifecycle","onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.i("lifecycle","onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(CORRECT_ANSWER, correct_answer);
+        outState.putInt(CURRENT_QUESTION, current_question);
+        outState.putBooleanArray(ANSWER_IS_CORRECT, answer_is_correct);
+        outState.putIntArray(ANSWER, answer);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("lifecycle","onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
@@ -41,7 +76,19 @@ public class QuizActivity extends AppCompatActivity {
         btn_prev = (Button) findViewById(R.id.btn_prev);
 
         all_questions=getResources().getStringArray(R.array.all_questions);
-        startOver();
+
+        if (savedInstanceState==null){
+            startOver();
+        } else {
+            Bundle state = savedInstanceState;
+            correct_answer = state.getInt(CORRECT_ANSWER);
+            current_question = state.getInt(CURRENT_QUESTION);
+            answer_is_correct = state.getBooleanArray(ANSWER_IS_CORRECT);
+            answer = state.getIntArray(ANSWER);
+            showQuestion();
+
+        }
+
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
